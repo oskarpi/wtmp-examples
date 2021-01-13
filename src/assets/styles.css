@@ -92,9 +92,19 @@ form{
 }
 .restaurant-box{
   width: 40%;
-  height: 20vh;
+  height: auto;
   padding: 1%;
   border: 1px dashed #AD6426;
   border-radius: 0.8em;
   background-color: #EFEFEF;
+}
+.restaurant-menu{
+  flex-direction: column;
+}
+.dish{
+  list-style-type: square;
+  margin: 5px;
+}
+#random-dish-p{
+  margin-top: 10px;
 }
