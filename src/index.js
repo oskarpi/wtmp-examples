@@ -62,7 +62,7 @@ const sortAlphapet = (array, order) =>{
   }
 };
 
-const randomDish = (language) => {
+const randomDish = () => {
   randomDishP.textContent = '';
   if(language === 'fi'){
     const randomDish = coursesFi[Math.floor(Math.random() * coursesFi.length)];
@@ -94,6 +94,4 @@ sortAlphapetButton.addEventListener('click', () => {
   }
 });
 
-randomButton.addEventListener('click', () => {
-  randomDish(language);
-});
+randomButton.addEventListener('click', randomDish);
