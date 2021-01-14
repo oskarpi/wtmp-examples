@@ -34,9 +34,11 @@ label{
 .guessField{
   font-size: 17px;
   margin-right: 10px;
+  border: 2px solid black;
 }
 .resultParas{
   display: none;
+  width: 390px;
   flex-direction: column;
   border: solid 2px darkslategrey;
   box-shadow: 5px 6px lightgrey;
@@ -51,5 +53,8 @@ button{
 .guesses, .lastResult, .lowOrHi{
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 2px solid slategray;
+  border-bottom: 2px solid darkslategrey;
+}
+.results{
+  margin:10px 0;
 }

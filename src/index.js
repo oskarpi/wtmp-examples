@@ -37,7 +37,7 @@ const checkGuess = () => {
   if (userGuess === randomNumber) {
     lastResult.textContent = 'Congratulations! You got it right!';
     lastResult.style.backgroundColor = 'green';
-    lowOrHi.textContent = '';
+    lowOrHi.textContent = 'Correct!';
     let endTime = Date.now();
     let totalTime = endTime - startTime;
     setGameOver(totalTime, guessCount);
@@ -74,7 +74,9 @@ const setGameOver = (totalTime, guessCount) => {
 
   if(guessCount<= 10){
     scoreTime.textContent = 'Your total time ' + totalTime / 1000 + ' seconds';
+    scoreTime.classList.add('results');
     scoreGuesses.textContent = 'Your total number of guesses ' +  guessCount;
+    scoreGuesses.classList.add('results');
   }else{
     scoreTime.textContent = '';
     scoreGuesses.textContent = '';
