@@ -40,12 +40,26 @@ const checkGuess = () => {
     lowOrHi.textContent = 'Correct!';
     let endTime = Date.now();
     let totalTime = endTime - startTime;
-    setGameOver(totalTime, guessCount);
+    scoreTime = document.createElement('p');
+    scoreGuesses = document.createElement('p');
+    scoreTime.textContent = 'Your total time ' + totalTime / 1000 + ' seconds';
+    scoreTime.classList.add('results');
+    scoreGuesses.textContent = 'Your total number of guesses ' +  guessCount;
+    scoreGuesses.classList.add('results');
+    document.body.append(scoreTime);
+    document.body.append(scoreGuesses);
+    setGameOver();
   } else if (guessCount === maxwGuesses) {
     lastResult.textContent = '!!!GAME OVER!!!';
-    let endTime = Date.now();
-    let totalTime = endTime - startTime;
-    setGameOver(totalTime, guessCount);
+    scoreTime = document.createElement('p');
+    scoreGuesses = document.createElement('p');
+    scoreTime.textContent = '';
+    scoreGuesses.textContent = '';
+    scoreTime.classList.add('results');
+    scoreGuesses.classList.add('results');
+    document.body.append(scoreTime);
+    document.body.append(scoreGuesses);
+    setGameOver();
   } else {
     lastResult.textContent = 'Wrong!';
     lastResult.style.backgroundColor = 'red';
@@ -63,28 +77,17 @@ const checkGuess = () => {
 
 guessSubmit.addEventListener('click', checkGuess);
 
-const setGameOver = (totalTime, guessCount) => {
+const setGameOver = () => {
 
   guessField.disabled = true;
   guessSubmit.disabled = true;
   resetButton = document.createElement('button');
-  scoreTime = document.createElement('p');
-  scoreGuesses = document.createElement('p');
+
   resetButton.textContent = 'Start new game';
 
-  if(guessCount<= 10){
-    scoreTime.textContent = 'Your total time ' + totalTime / 1000 + ' seconds';
-    scoreTime.classList.add('results');
-    scoreGuesses.textContent = 'Your total number of guesses ' +  guessCount;
-    scoreGuesses.classList.add('results');
-  }else{
-    scoreTime.textContent = '';
-    scoreGuesses.textContent = '';
-  }
 
   document.body.append(resetButton);
-  document.body.append(scoreTime);
-  document.body.append(scoreGuesses);
+
   resetButton.addEventListener('click', resetGame);
 };
 
@@ -93,14 +96,17 @@ const resetGame = () => {
   startTime = Date.now();
   resultParas.style.display = 'none';
 
+  console.log('kävin täällä');
+
   const resetParas = document.querySelectorAll('.resultParas p');
   for (let i = 0 ; i < resetParas.length ; i++) {
     resetParas[i].textContent = '';
   }
 
   resetButton.parentNode.removeChild(resetButton);
-  scoreTime.parentNode.removeChild(scoreTime);
   scoreGuesses.parentNode.removeChild(scoreGuesses);
+  scoreTime.parentNode.removeChild(scoreTime);
+
 
   guessField.disabled = false;
   guessSubmit.disabled = false;

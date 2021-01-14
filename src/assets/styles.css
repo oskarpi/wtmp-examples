@@ -48,7 +48,6 @@ button{
   border-radius: 5px;
   width: 165px;
   font-size: 17px;
-  margin-top: 25px;
 }
 .guesses, .lastResult, .lowOrHi{
   padding-top: 10px;
