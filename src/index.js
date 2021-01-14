@@ -8,12 +8,14 @@ const maxwGuesses = 10;
 
 let randomNumber = Math.floor(Math.random() * highestNumber) + lowestNumber;
 
+const resultParas = document.querySelector('.resultParas');
 const guesses = document.querySelector('.guesses');
 const lastResult = document.querySelector('.lastResult');
 const lowOrHi = document.querySelector('.lowOrHi');
 
 const guessSubmit = document.querySelector('.guessSubmit');
 const guessField = document.querySelector('.guessField');
+
 
 let guessCount = 1;
 let resetButton;
@@ -24,6 +26,7 @@ let scoreGuesses;
 const checkGuess = () => {
 
   console.log(startTime);
+  resultParas.style.display = 'flex';
 
   let userGuess = Number(guessField.value);
   if (guessCount === 1) {
@@ -69,7 +72,7 @@ const setGameOver = (totalTime, guessCount) => {
   scoreGuesses = document.createElement('p');
   resetButton.textContent = 'Start new game';
 
-  if(guessCount< 10){
+  if(guessCount<= 10){
     scoreTime.textContent = 'Your total time ' + totalTime / 1000 + ' seconds';
     scoreGuesses.textContent = 'Your total number of guesses ' +  guessCount;
   }else{
@@ -86,6 +89,7 @@ const setGameOver = (totalTime, guessCount) => {
 const resetGame = () => {
   guessCount = 1;
   startTime = Date.now();
+  resultParas.style.display = 'none';
 
   const resetParas = document.querySelectorAll('.resultParas p');
   for (let i = 0 ; i < resetParas.length ; i++) {
