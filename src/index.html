@@ -1,60 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main page</title>
-    <link rel="stylesheet" href="assets/styles.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main page</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
 <nav>
-    <ul id="nav-links">
-        <li><a href="*">Etusivu</a></li>
-        <li><a href="*">Ruokalistat</a></li>
-        <li><a href="*">Ravintolat</a></li>
-        <li><a href="*">Yhteystiedot</a></li>
-    </ul>
-    <form id="search-form">
-        <input placeholder="Hae ravintolaa nimellä.." type="text" name="restaurant" id="search-restaurant">
-    </form>
+  <ul id="nav-links">
+    <li><a href="*">Etusivu</a></li>
+    <li><a href="*">Ruokalistat</a></li>
+    <li><a href="*">Ravintolat</a></li>
+    <li><a href="*">Yhteystiedot</a></li>
+  </ul>
+  <form id="search-form">
+    <input placeholder="Hae ravintolaa nimellä.." type="text" name="restaurant" id="search-restaurant">
+  </form>
 </nav>
 <header>
-    <div id="banner">
-        <div id="banner-textarea-container">
-            <div id="banner-textarea">
-                <h1>Lounari. <br> Missä tänään syötäisiin?</h1>
-            </div>
-        </div>
-        <div id="banner-picture">
-            <div id="triangle"></div>
-        </div>
+  <div id="banner">
+    <div id="banner-textarea-container">
+      <div id="banner-textarea">
+        <h1>Lounari. <br> Missä tänään syötäisiin?</h1>
+      </div>
     </div>
+    <div id="banner-picture">
+      <div id="triangle"></div>
+    </div>
+  </div>
 </header>
 <main>
-    <div id="info-area">
-        <div id="text-area">
-            <h1>Missä tänään syötäisiin? Tuttu tarina ennen lounashetkeä. <br> Palvelu etsii lähelläsi olevat
-                lounaspaikat,
-                sekä näyttää niiden päivittäisen lounaslistan. <br> Viikottaiset lounaslistat ovat myös käytettävissäsi.
-                Pääset niihin klikkaamalla ravintolan logoa.</h1>
-        </div>
+  <div id="info-area">
+    <div id="text-area">
+      <h1>Missä tänään syötäisiin? Tuttu tarina ennen lounashetkeä. <br> Palvelu etsii lähelläsi olevat
+        lounaspaikat,
+        sekä näyttää niiden päivittäisen lounaslistan. <br> Viikottaiset lounaslistat ovat myös käytettävissäsi.
+        Pääset niihin klikkaamalla ravintolan logoa.</h1>
     </div>
-    <div id="restaurants-area">
-        <div class="restaurant-box">
-            <h2>Ravintola 1 menu</h2>
-            <ul class='restaurant-menu'>
-            </ul>
-            <button id='change-language'>Vaihda kieltä</button>
-            <button id='sort'>Järjestä aakkojärjestykseen</button>
-            <button id='random-dish'>Arvo annos</button>
-            <p id='random-dish-p'></p>
-        </div>
-        <div class="restaurant-box">
-            <h2>Ravintola 2</h2>
-        </div>
+  </div>
+  <div id="restaurants-area">
+    <div class="restaurant-box">
+      <h2>Ravintola 1 menu</h2>
+      <ul class='restaurant-menu'>
+      </ul>
+      <button id='change-language'>Vaihda kieltä</button>
+      <button id='sort'>Järjestä aakkojärjestykseen</button>
+      <button id='random-dish'>Arvo annos</button>
+      <p id='random-dish-p'></p>
+      <form id="regex-form">
+        <input type="text" id="regex-input" placeholder="Validoi annoksia">
+        <input type="submit" id="regex-submit">
+      </form>
+      <button id="sort-price-button">Järjestä menu konsoliin hinnan mukaan</button>
+      <button id="filter-price-button">Tulostaa konsoliin alle 5€ ateriat</button>
+      <button id="raise-price-button">Nosta hintoja 15%</button>
+      <button id="sum-price-button">Laske konsoliin koko menun hinta</button>
+      <button id="select-vegan-button">Valitse vegaaniset ruuat</button>
     </div>
+    <div class="restaurant-box">
+      <h2>Ravintola 2</h2>
+    </div>
+  </div>
 </main>
 </body>
 </html>
