@@ -1,105 +1,112 @@
 'use strict';
 
-import LunchMenu from './assets/sodexo-day-example.json';
 // Test
-console.log('lunch menu object', LunchMenu);
+import Tools from './assets/modules/sodexo-module';
+import ToolsFazer from './assets/modules/fazer-module';
 
 const menu = document.querySelector('.restaurant-menu');
-const restaurantBox = document.querySelector('.restaurant-box');
 const changeLanguageButton = document.getElementById('change-language');
 const sortAlphapetButton = document.getElementById('sort');
 const randomButton = document.getElementById('random-dish');
-const randomDishP = document.getElementById('random-dish-p');
-let course;
-let language = 'fi';
-let sort = false;
+const fazerChangeLanguage = document.getElementById('fazer-change-language');
+let fazerMenu = document.getElementById('fazer-menu');
+//const sortFazerButton = document.getElementById('fazer-sort-button');
+let sort = Tools.sort;
+//let fazerSort = true;
+let language = Tools.language;
+let fazerLanguage = 'fi';
 
-const finnishLunchArray = [];
-  for(let o in LunchMenu.courses) {
-  finnishLunchArray.push(LunchMenu.courses[o].title_fi);
-  }
-
-  const englishLunchArray = [];
-  for(let o in LunchMenu.courses) {
-    englishLunchArray.push(LunchMenu.courses[o].title_en);
-  }
-
-for(const val of finnishLunchArray){
-      course = document.createElement('li');
-      course.classList.add('dish');
-      course.textContent = val;
-      menu.append(course);
-};
-
-
-const changeLanguage = () => {
-  menu.textContent = '';
-  if(language==='fi'){
-   for(const val of englishLunchArray){
-      course = document.createElement('li');
-      course.classList.add('dish');
-      course.textContent = val;
-      menu.append(course);
-      language='en';
-    }
-  }else{
-    for(const val of finnishLunchArray){
-      course = document.createElement('li');
-      course.classList.add('dish');
-      course.textContent = val;
-      menu.append(course);
-      language='fi';
-  }
+for (const val of Tools.finnishLunchArray) {
+  const course = document.createElement('li');
+  course.classList.add('dish');
+  course.textContent = val;
+  menu.append(course);
 }
-};
 
-const sortAlphapet = (array, order) =>{
-  if(!order){
-      sort = true;
-      return array.sort();
-  }else{
-    sort = false;
-    return array.sort().reverse();
-  }
-};
+for (const meal of ToolsFazer.printTodaysMenu(fazerLanguage)) {
+  const course = document.createElement('li');
+  course.classList.add('dish');
+  course.textContent = meal;
+  fazerMenu.append(course);
+}
+if (fazerLanguage === 'fi') {
+  fazerLanguage = 'en';
+}
+else {
+  fazerLanguage = 'fi';
+}
 
-const randomDish = () => {
-  randomDishP.textContent = '';
-  if(language === 'fi'){
-    const random = Math.floor(Math.random() * 9) + 1;
-    const randomDish = LunchMenu.courses[random].title_fi;
-    randomDishP.textContent =  'Päivän arvottu annos: ' + randomDish;
-  }else{
-    const random = Math.floor(Math.random() * 9) + 1;
-    const randomDish = LunchMenu.courses[random].title_en;
-    randomDishP.textContent = 'Random dish of the day: ' + randomDish;
-  }
-};
-
-changeLanguageButton.addEventListener('click', changeLanguage);
+changeLanguageButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  language = Tools.changeLanguage(language);
+});
 
 sortAlphapetButton.addEventListener('click', () => {
-  if(language === 'fi'){
+  if (language === 'fi') {
     menu.textContent = '';
-
-
-
-    for(const dish of sortAlphapet(finnishLunchArray, sort)){
-      course = document.createElement('li');
+    for (const dish of Tools.sortAlphapet(Tools.finnishLunchArray, sort)) {
+      const course = document.createElement('li');
       course.classList.add('dish');
       course.textContent = dish;
       menu.append(course);
-
-  }}else{
-
+    }
+    sort = !sort;
+  }
+  else {
     menu.textContent = '';
-    for(const dish of sortAlphapet(englishLunchArray, sort)){
-      course = document.createElement('li');
+    for (const dish of Tools.sortAlphapet(Tools.englishLunchArray, sort)) {
+      const course = document.createElement('li');
       course.classList.add('dish');
       course.textContent = dish;
       menu.append(course);
-      }
+    }
+    sort = !sort;
   }
 });
 
-randomButton.addEventListener('click', randomDish);
+randomButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  Tools.randomDish(language);
+});
+
+fazerChangeLanguage.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  fazerMenu.textContent = '';
+  for (const meal of ToolsFazer.printTodaysMenu(fazerLanguage)) {
+    const course = document.createElement('li');
+    course.classList.add('dish');
+    course.textContent = meal;
+    fazerMenu.append(course);
+  }
+  if (fazerLanguage === 'fi') {
+    fazerLanguage = 'en';
+  }
+  else {
+    fazerLanguage = 'fi';
+  }
+});
+/*
+sortFazerButton.addEventListener('click', (evt) => {
+  fazerMenu.textContent = '';
+  if (fazerSort) {
+    console.log(fazerLanguage);
+    for (const meal of ToolsFazer.printTodaysMenu(fazerLanguage).sort()) {
+      const course = document.createElement('li');
+      course.classList.add('dish');
+      course.textContent = meal;
+      fazerMenu.append(course);
+    }
+    fazerSort = !fazerSort;
+  }
+  else {
+    console.log(fazerLanguage);
+    for (const meal of ToolsFazer.printTodaysMenu(fazerLanguage).sort().reverse()) {
+      const course = document.createElement('li');
+      course.classList.add('dish');
+      course.textContent = meal;
+      fazerMenu.append(course);
+    }
+    fazerSort = !fazerSort;
+  }
+});
+*/

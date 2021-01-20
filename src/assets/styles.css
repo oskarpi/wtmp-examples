@@ -26,6 +26,9 @@ ul{
   list-style-type: none;
   margin: auto;
 }
+#fazer-menu{
+  flex-direction: column;
+}
 li{
   margin-left: 2%;
   font-size: 1.2em;
