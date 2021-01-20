@@ -1,5 +1,11 @@
 'use strict';
 
+/*
+Paras pelistrategia on arvata numeroskaalan puolesta välistä ja edetä näin kunnes saadaan yksi luku jäljelle.
+
+*/
+
+
 let startTime = Date.now();
 
 const highestNumber = 100;
@@ -12,6 +18,7 @@ const resultParas = document.querySelector('.resultParas');
 const guesses = document.querySelector('.guesses');
 const lastResult = document.querySelector('.lastResult');
 const lowOrHi = document.querySelector('.lowOrHi');
+const simulationButton = document.getElementById('simulation-button');
 
 const guessSubmit = document.querySelector('.guessSubmit');
 const guessField = document.querySelector('.guessField');
@@ -117,3 +124,11 @@ const resetGame = () => {
 
   randomNumber = Math.floor(Math.random() * highestNumber) + lowestNumber;
 };
+
+
+
+const algorithm = () => {
+
+};
+
+simulationButton.addEventListener('click', algorithm);
