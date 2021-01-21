@@ -125,45 +125,63 @@ randomButton.addEventListener('click', randomDish);
 
 regexForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  validateMeal(regexInput.value);
+  console.log('Meal is valid: ', validateMeal(regexInput.value));
 });
 
 const validateMeal = (meal) => {
-  console.log(/^[A-ZÖÄÅ]{1}[a-zöäå0-9 \-/,()]{4,64}$/.test(meal));
+  let boolean = /^[A-ZÖÄÅ]{1}[a-zöäåA-ZÖÄÅ0-9 \-/,()]{3,63}$/.test(meal);
+  return boolean;
 };
 
 const sortMenuPrice = () => {
    let sortedMenu = [...daysMenu].sort((a, b) => b.price - a.price);
    console.log('Ateriat hinnan mukaan pienimmästä suurimpaan', sortedMenu);
+   return sortedMenu;
 };
 
 const filterMenuPrice = () =>{
   let filteredMenu = [...daysMenu].filter((meal) => meal.price < 5);
   console.log('Alle 5€ ateriat', filteredMenu);
+  return filteredMenu;
 };
 
 const raiseMenuPrice = () => {
-  let raisedMenu = daysMenu.map((meal) => (meal.price*1.15).toFixed(2));
+  let raisedMenu = daysMenu.map((meal) => {
+    return {
+      name: meal.name,
+      price: (meal.price*1.15).toFixed(2)
+    };
+  });
   console.log('Nostetut hinnat:', raisedMenu);
 };
 
 const sumMenuPrice = () =>{
   let sumPrice = daysMenu.reduce((a, b) => ({price: a.price + b.price}));
   console.log('Menun hinta:', sumPrice);
+  return sumPrice;
 };
 
-const selectVeganMeal = () =>{
-  let mondayLunch = fazerLuchMenu.LunchMenus[0].SetMenus;
-  for(const mealSet of mondayLunch){
-    //console.log(mealSet);
-    for (const meal of mealSet.Meals){
-
+const selectVeganMeal = (menuData) =>{
+  let vegeMeals = [];
+  for (const setMenu of menuData.LunchMenus[0].SetMenus){
+    for(const meal of setMenu.Meals){
+      if(meal.Diets.includes('Veg')){
+        vegeMeals.push(meal.Name);
+      }
     }
   }
+  return vegeMeals;
 };
+
+for(const item of Object.values(daysMenu)){
+  console.log('mealname: ' + item.name + ' is valid:' , validateMeal(item.name));
+}
 
 sortPriceButton.addEventListener('click', sortMenuPrice);
 filterPriceButton.addEventListener('click', filterMenuPrice);
 raisePriceButton.addEventListener('click', raiseMenuPrice);
 sumPriceButton.addEventListener('click', sumMenuPrice);
-selectVeganButton.addEventListener('click', selectVeganMeal);
+selectVeganButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  console.log(selectVeganMeal(fazerLuchMenu));
+});
