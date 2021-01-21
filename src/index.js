@@ -10,11 +10,13 @@ const sortAlphapetButton = document.getElementById('sort');
 const randomButton = document.getElementById('random-dish');
 const fazerChangeLanguage = document.getElementById('fazer-change-language');
 let fazerMenu = document.getElementById('fazer-menu');
-//const sortFazerButton = document.getElementById('fazer-sort-button');
+const sortFazerButton = document.getElementById('fazer-sort-button');
+const randomFazerButton = document.getElementById('fazer-random-button');
+const randomFazerMealP = document.getElementById('fazer-random-meal');
 let sort = Tools.sort;
-//let fazerSort = true;
+let fazerSort = false;
 let language = Tools.language;
-let fazerLanguage = 'fi';
+let fazerLanguage = true;
 
 for (const val of Tools.finnishLunchArray) {
   const course = document.createElement('li');
@@ -29,11 +31,8 @@ for (const meal of ToolsFazer.printTodaysMenu(fazerLanguage)) {
   course.textContent = meal;
   fazerMenu.append(course);
 }
-if (fazerLanguage === 'fi') {
-  fazerLanguage = 'en';
-}
-else {
-  fazerLanguage = 'fi';
+if (fazerLanguage) {
+  fazerLanguage  = !fazerLanguage;
 }
 
 changeLanguageButton.addEventListener('click', (evt) => {
@@ -78,19 +77,19 @@ fazerChangeLanguage.addEventListener('click', (evt) => {
     course.textContent = meal;
     fazerMenu.append(course);
   }
-  if (fazerLanguage === 'fi') {
-    fazerLanguage = 'en';
+  if (fazerLanguage) {
+    fazerLanguage = !fazerLanguage;
   }
   else {
-    fazerLanguage = 'fi';
+    fazerLanguage = !fazerLanguage;
   }
 });
-/*
+
 sortFazerButton.addEventListener('click', (evt) => {
   fazerMenu.textContent = '';
-  if (fazerSort) {
+  if (!fazerSort) {
     console.log(fazerLanguage);
-    for (const meal of ToolsFazer.printTodaysMenu(fazerLanguage).sort()) {
+    for (const meal of ToolsFazer.printTodaysMenu(!fazerLanguage).sort()) {
       const course = document.createElement('li');
       course.classList.add('dish');
       course.textContent = meal;
@@ -100,7 +99,7 @@ sortFazerButton.addEventListener('click', (evt) => {
   }
   else {
     console.log(fazerLanguage);
-    for (const meal of ToolsFazer.printTodaysMenu(fazerLanguage).sort().reverse()) {
+    for (const meal of ToolsFazer.printTodaysMenu(!fazerLanguage).sort().reverse()) {
       const course = document.createElement('li');
       course.classList.add('dish');
       course.textContent = meal;
@@ -109,4 +108,13 @@ sortFazerButton.addEventListener('click', (evt) => {
     fazerSort = !fazerSort;
   }
 });
-*/
+
+randomFazerButton.addEventListener('click', (evt)=>{
+  evt.preventDefault();
+  randomFazerMealP.textContent = '';
+  let fazerLunchMenu = [];
+  for (const meal of fazerMenu.childNodes){
+    fazerLunchMenu.push(meal.textContent);
+  }
+  randomFazerMealP.textContent = 'Arvottu annos: ' + ToolsFazer.randomDish(fazerLunchMenu);
+});

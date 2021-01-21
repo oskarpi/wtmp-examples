@@ -22,7 +22,7 @@ const todaysLuchEng = fazerEngLuch.LunchMenus[getWeekday()];
 
 const printTodaysMenu = (language) => {
   todaysLunch = [];
-  if (language === 'fi') {
+  if (language) {
     //console.log(todaysLuchFin);
     for (const setMenu of todaysLuchFin.SetMenus){
       lunch = '';
@@ -52,6 +52,10 @@ const printTodaysMenu = (language) => {
   }
 };
 
+const randomDish = (menu) => {
+  const randomIndex = Math.floor(Math.random()* menu.length);
+  return menu[randomIndex];
+};
 
-const ToolsFazer = {printTodaysMenu};
+const ToolsFazer = {printTodaysMenu, randomDish};
 export default ToolsFazer;
