@@ -25,7 +25,6 @@ let scoreGuesses;
 let startIndex;
 let endIndex;
 let guessTotalCount;
-//console.log(randomNumber);
 
 
 /*
@@ -33,6 +32,8 @@ Paras pelistrategia on arvata numeroskaalan puolesta välistä. Kun peli kertoo 
 ja arvataan lukujen puolesta välistä. Näin edetään kunnes saadaan oikea luku jäljelle.
 Algoritmina tätä jäljittelee binääri haku.
 Funktio ottaa parametrina Array [numerot 0-100] ja numeron (satunnainen luku).
+Arvauksia menee keskimäärin 6. Maksimi simulaatiossa on 7 arvausta. Minimi simulaatiossa on 1 arvaus.
+Teoreettinen maksimi algoritmissa on 7 arvausta.
 */
 
 const binarySearch = (numbers, randomNumber) => {
@@ -44,31 +45,53 @@ const binarySearch = (numbers, randomNumber) => {
     if(randomNumber === numbers[middleIndex]) {
       guessTotalCount++;
       guessCountArray.push(guessTotalCount);
-      //guessedNumbersArray.push(numbers[middleIndex]);
-      //return console.log("Target was found at index " + middleIndex+ ' Number of guesses ', guessCount, guessCountArray, guessedNumbersArray);
+      guessedNumbersArray.push(numbers[middleIndex]);
+      return console.log('osuma');
     }
     if(randomNumber > numbers[middleIndex]) {
       //console.log("Searching the right side of Array", numbers[middleIndex]);
-      //guessedNumbersArray.push(numbers[middleIndex]);
+      guessedNumbersArray.push(numbers[middleIndex]);
       startIndex = middleIndex + 1;
       guessTotalCount++;
     }
     if(randomNumber < numbers[middleIndex]) {
       //console.log("Searching the left side of array", numbers[middleIndex]);
-      //guessedNumbersArray.push(numbers[middleIndex]);
+      guessedNumbersArray.push(numbers[middleIndex]);
       endIndex = middleIndex - 1;
       guessTotalCount++;
     }
   }
 
-  //console.log("Target value not found in array");
+  console.log("Target value not found in array");
 };
 
-for (let i=0; i<5; i++){
-  //randomNumber = Math.floor(Math.random() * highestNumber) + lowestNumber;
+for (let i=0; i<1100; i++) {
+  randomNumber = Math.floor(Math.random() * highestNumber) + lowestNumber;
   binarySearch(numbersArray, randomNumber);
 }
+
+
+const guessedAverage = (guessesArray) =>{
+  let sumGuesses = 0;
+  for (const guesses of guessesArray){
+    sumGuesses += guesses;
+  }
+  let averageGuesses = Math.round(sumGuesses / guessesArray.length);
+  return averageGuesses;
+};
+
+const maxGuesses = (guessesArray) => {
+  return Math.max(...guessesArray);
+};
+
+const minGuesses = (guessesArray) => {
+  return Math.min(...guessesArray);
+};
+
 console.log(guessCountArray);
+console.log(guessedAverage(guessCountArray));
+console.log(maxGuesses(guessCountArray));
+console.log(minGuesses(guessCountArray));
 
 const checkGuess = () => {
 
