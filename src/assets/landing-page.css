@@ -1,0 +1,38 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+#background {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("pictures/Background.png");
+    background-size: cover;
+    position: relative;
+    overflow-y: hidden;
+    z-index: -5;
+}
+#foreground{
+    overflow: hidden;
+    width: inherit;
+}
+#girl{
+    position: absolute;
+    width: 20vw;
+    bottom: -2vh;
+    right: 42vw;
+    z-index: 10;
+}
+#parrot{
+    position: absolute;
+    width: 15vw;
+    top: 21vh;
+    right: 17vw;
+    z-index: 20;
+}
+#mouse, #mouse-center{
+    width: fit-content;
+    font-size: 1em;
+    margin: 1em;
+    background-color: white;
+}

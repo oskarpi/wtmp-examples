@@ -3,18 +3,33 @@
   padding: 0;
   margin: 0;
 }
+@font-face {
+  font-family: lato-black;
+  src: url("./font/Lato-Black.ttf");
+}
+@font-face {
+  font-family: lato-bold;
+  src: url("./font/Lato-Bold.ttf");
+}
+@font-face {
+  font-family: lato-regular;
+  src: url("./font/Lato-Regular.ttf");
+}
+:root {
+  --primary-blue: #15598A;
+  --primary-brown: #8A4615;
+  --primary-dark-grey: #343A40;
+  --primary-light-grey: #65707d;
+  --primary-black: #00000;
+  --secondery-blue: #0C4469;
+  --secondery-light-blue: #1D7BBF;
+  --secondery-brown: #B65C1B;
+  --roboto: 'Roboto Slab', serif;
+}
 body{
-  font-family: 'Roboto', sans-serif;
+  font-family: lato-regular;
 }
-h1{
-  font-size: 1.2em;
-}
-h2{
-  font-size: 1em;
-}
-p{
-  font-size: 1em;
-}
+
 nav{
   width: 100%;
   height: 8vh;
@@ -26,39 +41,55 @@ ul{
   list-style-type: none;
   margin: auto;
 }
-#fazer-menu{
-  flex-direction: column;
-}
 li{
   margin-left: 2%;
-  font-size: 1.2em;
+  font-size: 20px;
+  font-family: lato-bold;
+}
+button{
+  border: none;
+  background: inherit;
+  outline: none;
+  position: inherit;
 }
 a:hover{
-  color: black;
+  color: white;
+  background-color: var(--primary-blue);
+  border-radius: 0.5em;
 }
-a:focus{
-  color: orange;
+a:active{
+  color: white;
+  background-color: var(--secondery-brown);
+  border: 1px solid var(--secondery-brown);
 }
 a{
   text-decoration: none;
-  color: #AD6426;
+  color: var(--primary-brown);
+  padding: 0.5em;
 }
-input{
-  width: 15em;
-  font-size: 0.9em;
-  padding: 0.6em;
-  border: 1px solid #AD6426;
+li:first-child a{
+  color: white;
+  background-color: var(--primary-blue);
   border-radius: 0.5em;
 }
-input:focus{
-  outline: none;
+li:first-child a:active{
+  background-color: var(--secondery-brown);
 }
 form{
   margin: auto;
 }
-#text-area{
-  margin: auto;
-  width: 80%;
+#slogan-heading{
+  font-family: var(--roboto);
+  font-weight: 800;
+  font-size: 60px;
+  color: white;
+}
+#slogan-text{
+  font-family: var(--roboto);
+  font-weight: 400;
+  font-size: 23px;
+  text-indent: 1.4em;
+  color: white;
 }
 #banner{
   width: 100%;
@@ -67,7 +98,7 @@ form{
 }
 #banner-textarea-container{
   width:30%;
-  background-color: #77F186;
+  background-color: var(--primary-blue);
   justify-content: center;
   display: flex;
   align-items: center;
@@ -81,7 +112,7 @@ form{
 #triangle{
   width: 10%;
   height: 100%;
-  border-bottom: 25vh solid #77F186;
+  border-bottom: 25vh solid var(--primary-blue);
   border-right: 30vh solid transparent;
 }
 #info-area{
@@ -91,23 +122,151 @@ form{
 #restaurants-area{
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 .restaurant-box{
-  width: 40%;
-  height: auto;
+  display: flex;
+  width: 40vw;
   padding: 1%;
-  border: 1px dashed #AD6426;
+  border: 1px solid var(--primary-dark-grey);
   border-radius: 0.8em;
-  background-color: #EFEFEF;
+  background-color: #F5F5F5;
 }
-.restaurant-menu{
+#search-restaurant{
+  width: 20em;
+  font-size: 0.9em;
+  padding: 0.6em;
+  border: 1px solid var(--primary-brown);
+  border-radius: 0.5em;
+  text-indent: 5em;
+}
+#search-label{
+  position: absolute;
+  top: 7px;
+  left: 20px;
+}
+#search-restaurant:focus{
+  outline: none;
+}
+#search-icon{
+  width: 1.2em;
+  position: absolute;
+  top: 9px;
+  left: 57px;
+  fill: var(--primary-brown);
+}
+#search-icon:hover{
+  fill: var(--secondery-light-blue);
+}
+#search-icon:active{
+  fill: var(--secondery-brown);
+}
+#search-form{
+  display: flex;
+  position: relative;
+}
+.restaurant-text-area{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.7em;
+}
+.location-div{
+  display: flex;
+  width: 45%;
+  height: fit-content;
+  align-items: baseline;
+}
+.location-icon{
+  height: 1.8em;
+}
+.location-icon:hover{
+  fill: var(--secondery-light-blue);
+}
+.location-icon:active{
+  fill: var(--secondery-brown);
+}
+.restaurant-name{
+  width: 55%;
+  font-family: lato-black;
+  font-size: 21px;
+}
+.restaurant-logo{
+  max-width: 100%;
+  align-self: center;
+  border: 1px solid black;
+}
+#add-restaurant-div{
+  display: flex;
+}
+#add-restaurant-text{
+  margin: auto;
+  color: var(--primary-light-grey);
+  font-weight: 400;
+  font-size: 12px;
+}
+#add-icon{
+  width: 1.8em;
+  margin: 0.5em;
+  fill: var(--primary-light-grey);
+}
+#add-icon:hover{
+  fill: var(--secondery-light-blue);
+}
+#add-icon:active{
+  fill: var(--secondery-brown);
+}
+#add-restaurant-box{
+  display: flex;
+  width: 40vw;
+  padding: 1%;
+  border: 1px dashed var(--primary-light-grey);
+  border-radius: 0.8em;
+  background-color: white;
+}
+#slogan{
+  color: white;
+}
+#info-text-area{
+  margin: auto;
+  width: 55%;
+}
+#info-text-area h1{
+  color: var(--primary-dark-grey);
+  font-size: 24px;
+  font-weight: 400;
+}
+.menu ul li{
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 130%;
+  width: 80%;
+}
+.distance{
+  font-weight: 400;
+  font-size: 14px;
+}
+#add-restaurant-box-container{
+  margin-left: 6.5%;
+  margin-top: 2%;
+}
+.location-button{
+  height: 21px;
+  display: flex;
+}
+.menu-ul{
+  list-style-type: circle;
   flex-direction: column;
 }
-.dish{
-  list-style-type: square;
-  margin: 5px;
+.menu-li{
+  margin-bottom: 0.2em;
+  font-family: lato-regular, serif;
+  font-size: 10px;
 }
 #random-dish-p{
   margin-top: 10px;
+}
+.button-wrapper button{
+  outline: black;
+  border: 1px solid black;
 }

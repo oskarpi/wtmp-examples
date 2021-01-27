@@ -2,7 +2,7 @@
 
 import LunchMenu from './sodexo-day-example.json';
 
-const menu = document.querySelector('.restaurant-menu');
+const sodexoMenu = document.querySelector('#sodexo-menu');
 const randomDishP = document.getElementById('random-dish-p');
 
 let language = 'fi';
@@ -22,22 +22,22 @@ for(let o in LunchMenu.courses) {
 };
 
 const changeLanguage = (language) => {
-  menu.textContent = '';
+  sodexoMenu.textContent = '';
   if(language==='fi'){
     for(const val of englishLunchArray){
       const course = document.createElement('li');
-      course.classList.add('dish');
+      course.classList.add('menu-li');
       course.textContent = val;
-      menu.append(course);
+      sodexoMenu.append(course);
       language='en';
     }
     return language;
   }else{
     for(const val of finnishLunchArray){
       const course = document.createElement('li');
-      course.classList.add('dish');
+      course.classList.add('menu-li');
       course.textContent = val;
-      menu.append(course);
+      sodexoMenu.append(course);
       language='fi';
     }
     return language;
