@@ -68,6 +68,9 @@ randomButton.addEventListener('click', (evt) => {
   Tools.randomDish(language);
 });
 
+console.log(ToolsFazer.printTodaysMenu(fazerLanguage));
+console.log(Tools.finnishLunchArray);
+
 fazerChangeLanguage.addEventListener('click', (evt) => {
   evt.preventDefault();
   fazerMenu.textContent = '';
