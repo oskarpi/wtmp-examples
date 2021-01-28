@@ -9,7 +9,7 @@ const body = document.querySelector('body');
 
 let secretWord = 'hello';
 let input = '';
-window.addEventListener('keypress', function(event) {
+document.addEventListener('keypress', (event) => {
   input += event.key;
 
   if(input.length > secretWord.length) {
