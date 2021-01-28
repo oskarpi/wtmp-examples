@@ -1,8 +1,8 @@
 'use strict';
 
 // Test
-import Tools from './assets/modules/sodexo-module';
-import ToolsFazer from './assets/modules/fazer-module';
+import sodexoData from './assets/modules/sodexo-data';
+import fazerData from './assets/modules/fazer-data';
 
 const sodexoMenu = document.querySelector('#sodexo-menu');
 const changeLanguageButton = document.getElementById('change-language');
@@ -13,9 +13,9 @@ let fazerMenu = document.getElementById('fazer-menu');
 const sortFazerButton = document.getElementById('fazer-sort-button');
 const randomFazerButton = document.getElementById('fazer-random-button');
 const randomFazerMealP = document.getElementById('fazer-random-meal');
-let sort = Tools.sort;
+let sort = sodexoData.sort;
 let fazerSort = false;
-let language = Tools.language;
+let language = sodexoData.language;
 let fazerLanguage = true;
 const menuButton = document.querySelector('#menu-icon');
 const navItems = document.getElementById('nav-links');
@@ -46,14 +46,14 @@ window.addEventListener('resize',(event)=>{
 
 
 
-for (const val of Tools.finnishLunchArray) {
+for (const val of sodexoData.finnishLunchArray) {
   const course = document.createElement('li');
   course.classList.add('menu-li');
   course.textContent = val;
   sodexoMenu.append(course);
 }
 
-for (const meal of ToolsFazer.printTodaysMenu(fazerLanguage)) {
+for (const meal of fazerData.printTodaysMenu(fazerLanguage)) {
   const course = document.createElement('li');
   course.classList.add('menu-li');
   course.textContent = meal;
@@ -65,13 +65,13 @@ if (fazerLanguage) {
 
 changeLanguageButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  language = Tools.changeLanguage(language);
+  language = sodexoData.changeLanguage(language);
 });
 
 sortAlphapetButton.addEventListener('click', () => {
   if (language === 'fi') {
     sodexoMenu.textContent = '';
-    for (const dish of Tools.sortAlphapet(Tools.finnishLunchArray, sort)) {
+    for (const dish of sodexoData.sortAlphapet(sodexoData.finnishLunchArray, sort)) {
       const course = document.createElement('li');
       course.classList.add('menu-li');
       course.textContent = dish;
@@ -81,7 +81,7 @@ sortAlphapetButton.addEventListener('click', () => {
   }
   else {
     sodexoMenu.textContent = '';
-    for (const dish of Tools.sortAlphapet(Tools.englishLunchArray, sort)) {
+    for (const dish of sodexoData.sortAlphapet(sodexoData.englishLunchArray, sort)) {
       const course = document.createElement('li');
       course.classList.add('menu-li');
       course.textContent = dish;
@@ -93,18 +93,18 @@ sortAlphapetButton.addEventListener('click', () => {
 
 randomButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  Tools.randomDish(language);
+  sodexoData.randomDish(language);
 });
 
-console.log(ToolsFazer.printTodaysMenu(fazerLanguage));
-console.log(Tools.finnishLunchArray);
+console.log(fazerData.printTodaysMenu(fazerLanguage));
+console.log(sodexoData.finnishLunchArray);
 
 
 
 fazerChangeLanguage.addEventListener('click', (evt) => {
   evt.preventDefault();
   fazerMenu.textContent = '';
-  for (const meal of ToolsFazer.printTodaysMenu(fazerLanguage)) {
+  for (const meal of fazerData.printTodaysMenu(fazerLanguage)) {
     const course = document.createElement('li');
     course.classList.add('menu-li');
     course.textContent = meal;
@@ -122,7 +122,7 @@ sortFazerButton.addEventListener('click', (evt) => {
   fazerMenu.textContent = '';
   if (!fazerSort) {
     console.log(fazerLanguage);
-    for (const meal of ToolsFazer.printTodaysMenu(!fazerLanguage).sort()) {
+    for (const meal of fazerData.printTodaysMenu(!fazerLanguage).sort()) {
       const course = document.createElement('li');
       course.classList.add('menu-li');
       course.textContent = meal;
@@ -132,7 +132,7 @@ sortFazerButton.addEventListener('click', (evt) => {
   }
   else {
     console.log(fazerLanguage);
-    for (const meal of ToolsFazer.printTodaysMenu(!fazerLanguage).sort().reverse()) {
+    for (const meal of fazerData.printTodaysMenu(!fazerLanguage).sort().reverse()) {
       const course = document.createElement('li');
       course.classList.add('menu-li');
       course.textContent = meal;
@@ -149,5 +149,5 @@ randomFazerButton.addEventListener('click', (evt)=>{
   for (const meal of fazerMenu.childNodes){
     fazerLunchMenu.push(meal.textContent);
   }
-  randomFazerMealP.textContent = 'Arvottu annos: ' + ToolsFazer.randomDish(fazerLunchMenu);
+  randomFazerMealP.textContent = 'Arvottu annos: ' + fazerData.randomDish(fazerLunchMenu);
 });

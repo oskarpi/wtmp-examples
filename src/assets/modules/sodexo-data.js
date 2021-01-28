@@ -1,6 +1,6 @@
 'use strict';
 
-import LunchMenu from './sodexo-day-example.json';
+import sodexoLunch from './sodexo-day-example.json';
 
 const sodexoMenu = document.querySelector('#sodexo-menu');
 const randomDishP = document.getElementById('random-dish-p');
@@ -12,13 +12,13 @@ const englishLunchArray = [];
 
 
 
-for(let o in LunchMenu.courses) {
-  finnishLunchArray.push(LunchMenu.courses[o].title_fi);
+for(let o in sodexoLunch.courses) {
+  finnishLunchArray.push(sodexoLunch.courses[o].title_fi);
 };
 
 
-for(let o in LunchMenu.courses) {
-  englishLunchArray.push(LunchMenu.courses[o].title_en);
+for(let o in sodexoLunch.courses) {
+  englishLunchArray.push(sodexoLunch.courses[o].title_en);
 };
 
 const changeLanguage = (language) => {
@@ -58,15 +58,15 @@ const randomDish = (language) => {
   randomDishP.textContent = '';
   if(language === 'fi'){
     const random = Math.floor(Math.random() * 9) + 1;
-    const randomDish = LunchMenu.courses[random].title_fi;
+    const randomDish = sodexoLunch.courses[random].title_fi;
     randomDishP.textContent =  'Päivän arvottu annos: ' + randomDish;
   }else{
     const random = Math.floor(Math.random() * 9) + 1;
-    const randomDish = LunchMenu.courses[random].title_en;
+    const randomDish = sodexoLunch.courses[random].title_en;
     randomDishP.textContent = 'Random dish of the day: ' + randomDish;
   }
 };
 
 
-const Tools = {language, sort, finnishLunchArray, englishLunchArray, changeLanguage, sortAlphapet, randomDish};
-export default Tools;
+const sodexoData = {language, sort, finnishLunchArray, englishLunchArray, changeLanguage, sortAlphapet, randomDish};
+export default sodexoData;

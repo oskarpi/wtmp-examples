@@ -57,5 +57,5 @@ const randomDish = (menu) => {
   return menu[randomIndex];
 };
 
-const ToolsFazer = {printTodaysMenu, randomDish};
-export default ToolsFazer;
+const fazerData = {printTodaysMenu, randomDish};
+export default fazerData;
