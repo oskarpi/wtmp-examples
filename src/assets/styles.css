@@ -46,6 +46,9 @@ li{
   font-size: 20px;
   font-family: lato-bold;
 }
+#menu-icon{
+  display: none;
+}
 button{
   border: none;
   background: inherit;
@@ -97,7 +100,7 @@ form{
   display: flex;
 }
 #banner-textarea-container{
-  width:30%;
+  width:40%;
   background-color: var(--primary-blue);
   justify-content: center;
   display: flex;
@@ -105,7 +108,7 @@ form{
   text-align: center;
 }
 #banner-picture{
-  width: 70%;
+  width: 60%;
   background-image: url("pictures/black-frying-pan-with-spaghetti-sauce-near-brown-wooden-691114.jpg");
   background-size: cover;
 }
@@ -134,7 +137,7 @@ form{
   background-color: #F5F5F5;
 }
 #search-restaurant{
-  width: 20em;
+  width: 17em;
   font-size: 0.9em;
   padding: 0.6em;
   border: 1px solid var(--primary-brown);
@@ -165,6 +168,7 @@ form{
 #search-form{
   display: flex;
   position: relative;
+  margin-right: 2%;
 }
 .restaurant-text-area{
   display: flex;
@@ -263,10 +267,16 @@ form{
   font-family: lato-regular, serif;
   font-size: 10px;
 }
+
 #random-dish-p{
   margin-top: 10px;
 }
 .button-wrapper button{
   outline: black;
   border: 1px solid black;
+}
+@media screen and (min-width: 800px) and (max-width:1300px){
+  .restaurant-box{
+    flex-wrap: wrap;
+  }
 }

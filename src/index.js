@@ -17,6 +17,34 @@ let sort = Tools.sort;
 let fazerSort = false;
 let language = Tools.language;
 let fazerLanguage = true;
+const menuButton = document.querySelector('#menu-icon');
+const navItems = document.getElementById('nav-links');
+const searchForm = document.getElementById('search-form');
+
+menuButton.addEventListener('click', (event) =>{
+  event.preventDefault();
+  if(navItems.style.display === 'flex' && searchForm.style.display === 'flex'){
+    navItems.style.display = 'none';
+    searchForm.style.display = 'none';
+  }else{
+    navItems.style.display = 'flex';
+    searchForm.style.display = 'flex';
+  }
+
+});
+
+
+window.addEventListener('resize',(event)=>{
+  if(window.innerWidth > 800){
+    navItems.style.display = 'flex';
+    searchForm.style.display = 'flex';
+  }else{
+    navItems.style.display = 'none';
+    searchForm.style.display = 'none';
+  }
+});
+
+
 
 for (const val of Tools.finnishLunchArray) {
   const course = document.createElement('li');
