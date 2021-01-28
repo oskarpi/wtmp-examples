@@ -25,10 +25,12 @@ document.addEventListener('keypress', (event) => {
 
 
 //ii.
+const coordsParagraph = document.getElementById('coords');
 
 const doubleClickedCoords = (event) =>{
   event.preventDefault();
-  console.log(`clicked coordinates:, ${event.pageX}, ${event.pageY}`);
+  coordsParagraph.textContent = '';
+  coordsParagraph.textContent = `clicked coordinates: X=${event.clientX}, Y=${event.clientY}`;
 };
 
 document.addEventListener('dblclick', doubleClickedCoords);
@@ -36,13 +38,11 @@ document.addEventListener('dblclick', doubleClickedCoords);
 
 //iii.
 
-touchButton.addEventListener('mouseover', (event) =>{
-  event.preventDefault();
+touchButton.addEventListener('touchstart', (event) =>{
   touchButton.textContent = 'you touched the button';
 });
 
-touchButton.addEventListener('mouseleave', (event) =>{
-  event.preventDefault();
+touchButton.addEventListener('touchend', (event) =>{
   touchButton.textContent = 'Touch me';
 });
 
@@ -94,7 +94,6 @@ window.addEventListener('dblclick', ()=> {
   clearTimeout(idleHurry);
   setIdleTimer();
 });
-
 
 
 
