@@ -21,12 +21,6 @@ module.exports = {
         context: 'src/',
       },
     ]}),
-    new WorkboxPlugin.GenerateSW({
-      // these options encourage the ServiceWorkers to get in there fast
-      // and not allow any straggling "old" SWs to hang around
-      clientsClaim: true,
-      skipWaiting: true,
-    }),
     new HtmlWebpackPlugin({
       title: 'WTMP Starter',
       meta: {
@@ -37,6 +31,12 @@ module.exports = {
         removeComments: true,
         collapseWhitespace: true
       },
+    }),
+    new WorkboxPlugin.GenerateSW({
+      // these options encourage the ServiceWorkers to get in there fast
+      // and not allow any straggling "old" SWs to hang around
+      clientsClaim: true,
+      skipWaiting: true,
     }),
     new WebpackPwaManifest({
       name: 'Lunch Progressive Web App',
