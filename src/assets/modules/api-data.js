@@ -19,50 +19,49 @@ const getSodexoData = async () => {
   let response;
   try {
     response = await fetch(
-      `https://www.sodexo.fi/ruokalistat/output/daily_json/152/${today}`);
+      `https://cors-anywhere.herokuapp.com/https://www.sodexo.fi/ruokalistat/output/daily_json/152/${today}`);
 
   }
   catch (error) {
-    console.error('Sodexo-api error', error.message);
+    console.error('Sodexo-api fetching error', error.message);
   }
   return await response.json();
 };
 
-const getFazerData = async() => {
+const getFazerData = async(language) => {
   let response;
   try {
     response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://foodandco.fi/modules/json/json/Index?costNumber=3134&language=fi`);
+      `https://cors-anywhere.herokuapp.com/https://foodandco.fi/modules/json/json/Index?costNumber=3134&language=${language? 'fi' : 'en'}`);
   }
   catch (error) {
-    console.error('Fazer-api error', error.message);
+    console.error('Fazer-api fetching error', error.message);
   }
   return await response.json();
 };
 
-const initFazer= async () =>{
+const initFazer= async (language) =>{
   let response;
   let menu;
 
   try {
-    response = await getFazerData();
+    response = await getFazerData(language);
     let menus = Object.values(response.MenusForDays);
     for(let daysMenu of menus){
       if(daysMenu.Date.slice(0,10) === today){
-        menu = (daysMenu.SetMenus[0].Components);
+        menu = daysMenu.SetMenus[0].Components;
       }
     }
-    //console.log(menu);
     return menu;
   }
   catch (error) {
-    console.log('Fazer-api error', error.message);
+    console.log('Fazer-init error', error.message);
   }
 };
 
-initFazer().then(data => {console.log('Fazerdata: ', data);});
 
-const initSodexo= async () =>{
+
+const initSodexo= async (language) =>{
   let response;
   let menu = [];
 
@@ -70,7 +69,11 @@ const initSodexo= async () =>{
     response = await getSodexoData();
     let courses = Object.values(response.courses);
     for(let course of courses){
-      menu.push(course.title_fi);
+      if(language) {
+        menu.push(course.title_fi);
+      }else{
+        menu.push(course.title_en);
+      }
     }
     return menu;
   }
@@ -79,6 +82,6 @@ const initSodexo= async () =>{
   }
 };
 
-initSodexo().then(data => {console.log('Sodexodata: ', data);});
+
 const apiData = {today, initSodexo, initFazer};
 export default apiData;

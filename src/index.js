@@ -4,6 +4,7 @@
 import sodexoData from './assets/modules/sodexo-data';
 import fazerData from './assets/modules/fazer-data';
 import apiData from './assets/modules/api-data';
+import sodexoLunch from './assets/modules/sodexo-day-example.json';
 
 const sodexoMenu = document.querySelector('#sodexo-menu');
 const changeLanguageButton = document.getElementById('change-language');
@@ -14,9 +15,12 @@ let fazerMenu = document.getElementById('fazer-menu');
 const sortFazerButton = document.getElementById('fazer-sort-button');
 const randomFazerButton = document.getElementById('fazer-random-button');
 const randomFazerMealP = document.getElementById('fazer-random-meal');
+const randomDishP = document.getElementById('random-dish-p');
 let sort = sodexoData.sort;
-let fazerSort = false;
+let fazerSort = true;
 let language = sodexoData.language;
+let sodexoLanguage = true;
+let sodexoSort = true;
 let fazerLanguage = true;
 const menuButton = document.querySelector('#menu-icon');
 const navItems = document.getElementById('nav-links');
@@ -56,9 +60,94 @@ window.addEventListener('resize',(event)=>{
   }
 });
 
+const printSodexoMenu = async (menu) =>{
+  sodexoMenu.textContent = '';
+
+  for (let sodexoCourse of menu){
+    const course = document.createElement('li');
+    course.classList.add('menu-li');
+    course.textContent = sodexoCourse;
+    sodexoMenu.append(course);
+  }
+};
+
+const printFazerMenu = async (menu) => {
+  fazerMenu.textContent = '';
 
 
-for (const val of sodexoData.finnishLunchArray) {
+  for(let fazerCourse of menu){
+    const course = document.createElement('li');
+    course.classList.add('menu-li');
+    course.textContent = fazerCourse;
+    fazerMenu.append(course);
+  }
+};
+
+const printMenus = async () =>{
+  await printSodexoMenu(await apiData.initSodexo(sodexoLanguage));
+  await printFazerMenu(await apiData.initFazer(fazerLanguage));
+};
+
+printMenus();
+
+changeLanguageButton.addEventListener('click', async (evt) => {
+  evt.preventDefault();
+  sodexoLanguage = !sodexoLanguage;
+  printSodexoMenu(await apiData.initSodexo(sodexoLanguage));
+});
+
+fazerChangeLanguage.addEventListener('click', async (evt) =>{
+  evt.preventDefault();
+  fazerLanguage = !fazerLanguage;
+  printFazerMenu(await apiData.initFazer(fazerLanguage));
+});
+
+sortAlphapetButton.addEventListener('click', async (evt) =>{
+  evt.preventDefault();
+  let sortedSodexo;
+  sodexoSort = !sodexoSort;
+  if(sodexoSort){
+    sortedSodexo =  (await apiData.initSodexo(sodexoLanguage)).sort();
+  }else {
+    sortedSodexo = (await apiData.initSodexo(sodexoLanguage)).sort().reverse();
+  }
+  printSodexoMenu(sortedSodexo);
+
+});
+
+sortFazerButton.addEventListener('click', async (evt) =>{
+  evt.preventDefault();
+  let sortedFazer;
+  fazerSort = !fazerSort;
+  if(fazerSort){
+    sortedFazer =  (await apiData.initFazer(fazerLanguage)).sort();
+  }else {
+    sortedFazer = (await apiData.initFazer(fazerLanguage)).sort().reverse();
+  }
+  printFazerMenu(sortedFazer);
+});
+
+randomButton.addEventListener('click', async () => {
+  randomDishP.textContent = '';
+
+  if (sodexoLanguage) {
+    let random = Math.floor(Math.random() * (await apiData.initSodexo(
+      sodexoLanguage)).length);
+    let randomDish = await apiData.initSodexo(sodexoLanguage);
+    randomDishP.textContent = 'Päivän arvottu annos: ' + randomDish[random];
+  }
+  else {
+    let random = Math.floor(Math.random() * (await apiData.initSodexo(
+      sodexoLanguage)).length);
+    const randomDish = await apiData.initSodexo(sodexoLanguage);
+    randomDishP.textContent = 'Random dish of the day: ' + randomDish[random];
+  }
+});
+
+//apiData.initFazer().then(data => {});
+//initSodexo().then(data => {console.log('Sodexodata: ', data);});
+
+/*for (const val of sodexoData.finnishLunchArray) {
   const course = document.createElement('li');
   course.classList.add('menu-li');
   course.textContent = val;
@@ -163,3 +252,4 @@ randomFazerButton.addEventListener('click', (evt)=>{
   }
   randomFazerMealP.textContent = 'Arvottu annos: ' + fazerData.randomDish(fazerLunchMenu);
 });
+ */
