@@ -267,6 +267,10 @@ form{
   font-family: lato-regular, serif;
   font-size: 10px;
 }
+#menu-manipulate-buttons{
+  margin:1em;
+  text-align: center;
+}
 
 #random-dish-p, #fazer-random-meal{
   margin-top: 10px;
@@ -274,6 +278,18 @@ form{
 .button-wrapper button{
   outline: black;
   border: 1px solid black;
+  border-radius: 6%;
+  padding: 0.2em;
+  font-size: 16px;
+  margin: 0.5em;
+  background-color: var(--primary-blue);
+  color: white;
+}
+.button-wrapper button:hover{
+  background-color: var(--primary-brown);
+}
+.button-wrapper button:active{
+  background-color: var(--secondery-brown);
 }
 @media screen and (min-width: 800px) and (max-width:1300px){
   .restaurant-box{
