@@ -16,133 +16,188 @@ const sortFazerButton = document.getElementById('fazer-sort-button');
 const randomFazerButton = document.getElementById('fazer-random-button');
 const randomFazerMealP = document.getElementById('fazer-random-meal');
 const randomDishP = document.getElementById('random-dish-p');
-let sort = sodexoData.sort;
+let sort = true;
 let fazerSort = true;
-let language = sodexoData.language;
+let language = 'fi';
 let sodexoLanguage = true;
 let sodexoSort = true;
 let fazerLanguage = true;
+let fazerMenuObject = {};
+let sodexoMenuObject = {};
 const menuButton = document.querySelector('#menu-icon');
 const navItems = document.getElementById('nav-links');
 const searchForm = document.getElementById('search-form');
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').then(registration => {
-      console.log('SW registered: ', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
-    });
+    navigator.serviceWorker.register('./service-worker.js').
+      then(registration => {
+        console.log('SW registered: ', registration);
+      }).
+      catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
   });
 }
 
-
-menuButton.addEventListener('click', (event) =>{
+menuButton.addEventListener('click', (event) => {
   event.preventDefault();
-  if(navItems.style.display === 'flex' && searchForm.style.display === 'flex'){
+  if (navItems.style.display === 'flex' && searchForm.style.display ===
+    'flex') {
     navItems.style.display = 'none';
     searchForm.style.display = 'none';
-  }else{
+  }
+  else {
     navItems.style.display = 'flex';
     searchForm.style.display = 'flex';
   }
 
 });
 
-
-window.addEventListener('resize',(event)=>{
-  if(window.innerWidth > 800){
+window.addEventListener('resize', (event) => {
+  if (window.innerWidth > 800) {
     navItems.style.display = 'flex';
     searchForm.style.display = 'flex';
-  }else{
+  }
+  else {
     navItems.style.display = 'none';
     searchForm.style.display = 'none';
   }
 });
 
-const printSodexoMenu = async (menu) =>{
+const printSodexoMenu = (menu, language) => {
+  sodexoMenu.textContent = '';
+  console.log(menu);
+  if (language === 'fi') {
+    for (let sodexoCourse of menu.fi) {
+      const course = document.createElement('li');
+      course.classList.add('menu-li');
+      course.textContent = sodexoCourse;
+      sodexoMenu.append(course);
+    }
+  }
+  else {
+    for (let sodexoCourse of menu.en) {
+      const course = document.createElement('li');
+      course.classList.add('menu-li');
+      course.textContent = sodexoCourse;
+      sodexoMenu.append(course);
+    }
+  }
+};
+
+const printFazerMenu = async (menu, language) => {
+  fazerMenu.textContent = '';
+
+  if (language === 'fi') {
+    for (let fazerCourse of menu.fi) {
+      const course = document.createElement('li');
+      course.classList.add('menu-li');
+      course.textContent = fazerCourse;
+      fazerMenu.append(course);
+    }
+  }
+  else {
+    for (let fazerCourse of menu.en) {
+      const course = document.createElement('li');
+      course.classList.add('menu-li');
+      course.textContent = fazerCourse;
+      fazerMenu.append(course);
+    }
+  }
+};
+
+const sortSodexoMenu = (sodexoMenu1, language) =>{
+
+  let sortedSodexoMenu;
   sodexoMenu.textContent = '';
 
-  for (let sodexoCourse of menu){
+  if(!sort){
+    sortedSodexoMenu = (language === 'fi' ? sodexoMenu1.fi.sort().reverse() : sodexoMenu1.en.sort().reverse());
+  }else{
+    sortedSodexoMenu = (language === 'fi' ? sodexoMenu1.fi.sort() : sodexoMenu1.en.sort());
+  }
+
+  for (let sodexoLunch of sortedSodexoMenu) {
     const course = document.createElement('li');
     course.classList.add('menu-li');
-    course.textContent = sodexoCourse;
+    course.textContent = sodexoLunch;
     sodexoMenu.append(course);
   }
 };
 
-const printFazerMenu = async (menu) => {
+const sortFazerMenu = (fazerMenu1, language) => {
+  let sortedFazerMenu;
   fazerMenu.textContent = '';
-
-
-  for(let fazerCourse of menu){
+  if(!sort){
+    sortedFazerMenu = (language === 'fi' ? fazerMenu1.fi.sort().reverse() : fazerMenu1.en.sort().reverse());
+  }else{
+    sortedFazerMenu = (language === 'fi' ? fazerMenu1.fi.sort() : fazerMenu1.en.sort());
+  }
+  for (let fazerLunch of sortedFazerMenu) {
     const course = document.createElement('li');
     course.classList.add('menu-li');
-    course.textContent = fazerCourse;
+    course.textContent = fazerLunch;
     fazerMenu.append(course);
   }
 };
 
-const printMenus = async () =>{
-  await printSodexoMenu(await apiData.initSodexo(sodexoLanguage));
-  await printFazerMenu(await apiData.initFazer(fazerLanguage));
+const init = async () => {
+  try {
+    sodexoMenuObject = await apiData.initSodexo();
+    await printSodexoMenu(sodexoMenuObject, language);
+    fazerMenuObject['fi'] = await apiData.initFazer('fi');
+    fazerMenuObject['en'] = await apiData.initFazer('en');
+    await printFazerMenu(fazerMenuObject, language);
+  }
+  catch (error) {
+    console.log('init error', error.message);
+  }
 };
 
-printMenus();
+init();
 
-changeLanguageButton.addEventListener('click', async (evt) => {
-  evt.preventDefault();
-  sodexoLanguage = !sodexoLanguage;
-  printSodexoMenu(await apiData.initSodexo(sodexoLanguage));
-});
 
-fazerChangeLanguage.addEventListener('click', async (evt) =>{
+changeLanguageButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  fazerLanguage = !fazerLanguage;
-  printFazerMenu(await apiData.initFazer(fazerLanguage));
-});
-
-sortAlphapetButton.addEventListener('click', async (evt) =>{
-  evt.preventDefault();
-  let sortedSodexo;
-  sodexoSort = !sodexoSort;
-  if(sodexoSort){
-    sortedSodexo =  (await apiData.initSodexo(sodexoLanguage)).sort();
-  }else {
-    sortedSodexo = (await apiData.initSodexo(sodexoLanguage)).sort().reverse();
+  if(language === 'fi') {
+    language = 'en';
+    printSodexoMenu(sodexoMenuObject, language);
+    printFazerMenu(fazerMenuObject, language);
+  }else{
+    language = 'fi';
+    printSodexoMenu(sodexoMenuObject, language);
+    printFazerMenu(fazerMenuObject, language);
   }
-  printSodexoMenu(sortedSodexo);
-
 });
 
-sortFazerButton.addEventListener('click', async (evt) =>{
+
+
+sortAlphapetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  let sortedFazer;
-  fazerSort = !fazerSort;
-  if(fazerSort){
-    sortedFazer =  (await apiData.initFazer(fazerLanguage)).sort();
-  }else {
-    sortedFazer = (await apiData.initFazer(fazerLanguage)).sort().reverse();
-  }
-  printFazerMenu(sortedFazer);
+  sortSodexoMenu(sodexoMenuObject, language);
+  //sortFazerMenu(fazerMenuObject, language);
+  sort = !sort;
 });
 
-randomButton.addEventListener('click', async () => {
+randomButton.addEventListener('click', (language) => {
   randomDishP.textContent = '';
-
-  if (sodexoLanguage) {
-    let random = Math.floor(Math.random() * (await apiData.initSodexo(
-      sodexoLanguage)).length);
-    let randomDish = await apiData.initSodexo(sodexoLanguage);
+  console.log(language);
+  console.log(objecToArrays(sodexoMenuObject, language));
+  if (language) {
+    let random = Math.floor(Math.random() * Object.keys(sodexoMenuObject).find(k=>sodexoMenuObject[k]===language).length);
+    let randomDish = Object.keys(sodexoMenuObject).find(k=>sodexoMenuObject[k]===language);
     randomDishP.textContent = 'Päivän arvottu annos: ' + randomDish[random];
   }
   else {
-    let random = Math.floor(Math.random() * (await apiData.initSodexo(
-      sodexoLanguage)).length);
-    const randomDish = await apiData.initSodexo(sodexoLanguage);
+    let random = Math.floor(Math.random() * Object.keys(sodexoMenuObject).find(k=>sodexoMenuObject[k]===language).length);
+    const randomDish = Object.keys(sodexoMenuObject).find(k=>sodexoMenuObject[k]===language);
     randomDishP.textContent = 'Random dish of the day: ' + randomDish[random];
   }
 });
+
+
+
 
 //apiData.initFazer().then(data => {});
 //initSodexo().then(data => {console.log('Sodexodata: ', data);});

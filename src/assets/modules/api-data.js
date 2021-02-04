@@ -19,8 +19,10 @@ const getSodexoData = async () => {
   let response;
   try {
     response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://www.sodexo.fi/ruokalistat/output/daily_json/152/${today}`);
-
+      `https://www.sodexo.fi/ruokalistat/output/daily_json/152/${today}`);
+    if(!response.ok){
+      throw new Error(`HTTP ${response.status} ${response.statusText}`);
+    }
   }
   catch (error) {
     console.error('Sodexo-api fetching error', error.message);
@@ -32,7 +34,10 @@ const getFazerData = async(language) => {
   let response;
   try {
     response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://foodandco.fi/modules/json/json/Index?costNumber=3134&language=${language? 'fi' : 'en'}`);
+      `https://cors-anywhere.herokuapp.com/https://foodandco.fi/modules/json/json/Index?costNumber=3134&language=${language}`);
+    if(!response.ok){
+      throw new Error(`HTTP ${response.status} ${response.statusText}`);
+    }
   }
   catch (error) {
     console.error('Fazer-api fetching error', error.message);
@@ -61,20 +66,19 @@ const initFazer= async (language) =>{
 
 
 
-const initSodexo= async (language) =>{
+const initSodexo = async () =>{
   let response;
-  let menu = [];
-
+  let menu = {};
+  let menuFi = [];
+  let menuEn = [];
   try {
     response = await getSodexoData();
     let courses = Object.values(response.courses);
     for(let course of courses){
-      if(language) {
-        menu.push(course.title_fi);
-      }else{
-        menu.push(course.title_en);
-      }
+        menuFi.push(course.title_fi);
+        menuEn.push(course.title_en);
     }
+    menu = {fi: menuFi, en: menuEn};
     return menu;
   }
   catch (error) {
