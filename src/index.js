@@ -1,10 +1,8 @@
 'use strict';
 
-// Test
-import sodexoData from './assets/modules/sodexo-data';
-import fazerData from './assets/modules/fazer-data';
+
 import apiData from './assets/modules/api-data';
-import sodexoLunch from './assets/modules/sodexo-day-example.json';
+
 
 const sodexoMenu = document.querySelector('#sodexo-menu');
 const changeLanguageButton = document.getElementById('change-language');

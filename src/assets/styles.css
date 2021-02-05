@@ -196,7 +196,7 @@ form{
   font-size: 21px;
 }
 .restaurant-logo{
-  max-width: 100%;
+  max-width: 50%;
   align-self: center;
   border: 1px solid black;
 }
@@ -245,6 +245,7 @@ form{
   font-size: 12px;
   line-height: 130%;
   width: 80%;
+  margin: 0.2em;
 }
 .distance{
   font-weight: 400;
@@ -266,6 +267,18 @@ form{
   margin-bottom: 0.2em;
   font-family: lato-regular, serif;
   font-size: 10px;
+}
+#mobile-heading{
+  display: none;
+}
+#slogan-text-mobile{
+  display: none;
+}
+.menu{
+  margin-top: 0.5em;
+}
+.menu-li-heading{
+  margin-bottom: 0.3em;
 }
 #menu-manipulate-buttons{
   margin:1em;
