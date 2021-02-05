@@ -12,6 +12,9 @@ let fazerMenu = document.getElementById('fazer-menu');
 const randomFazerButton = document.getElementById('fazer-random-button');
 const randomFazerMealP = document.getElementById('fazer-random-meal');
 const randomDishP = document.getElementById('random-dish-p');
+const restaurants = document.querySelectorAll('.restaurant-box');
+const searchField = document.getElementById('search-restaurant');
+const searchButton = document.getElementById('search-icon');
 let sort = true;
 let language = 'fi';
 let fazerMenuObject = {};
@@ -199,3 +202,17 @@ randomFazerButton.addEventListener('click', (event) =>{
   randomFazerMealP.textContent = 'Päivän arvottu annos: ' + randomDish[random];
 });
 
+
+
+
+searchButton.addEventListener('click', (event)=>{
+  event.preventDefault();
+  for(let restaurant of restaurants){
+    console.log(restaurant);
+    if(restaurant.innerHTML.toLowerCase().includes(searchField.value.toLowerCase())){
+      restaurant.style.display = 'flex';
+    }else{
+      restaurant.style.display = 'none';
+    }
+  }
+});
