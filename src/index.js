@@ -207,7 +207,7 @@ randomFazerButton.addEventListener('click', (event) =>{
 
 searchButton.addEventListener('click', (event)=>{
   event.preventDefault();
-  for(let restaurant of restaurants){
+  for(let restaurant of  restaurants){
     console.log(restaurant);
     if(restaurant.innerHTML.toLowerCase().includes(searchField.value.toLowerCase())){
       restaurant.style.display = 'flex';
