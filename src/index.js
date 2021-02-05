@@ -202,9 +202,11 @@ randomFazerButton.addEventListener('click', (event) =>{
   randomFazerMealP.textContent = 'Päivän arvottu annos: ' + randomDish[random];
 });
 
+/*
 
+Vertaa hakusanaa ja ravintolan tekstisisältöä ja näyttää vain hakua vastaavat tulokset.
 
-
+ */
 searchButton.addEventListener('click', (event)=>{
   event.preventDefault();
   for(let restaurant of  restaurants){
