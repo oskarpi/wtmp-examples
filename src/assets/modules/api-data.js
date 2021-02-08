@@ -34,7 +34,7 @@ const getFazerData = async(language) => {
   let response;
   try {
     response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://foodandco.fi/modules/json/json/Index?costNumber=3134&language=${language}`);
+      `https://users.metropolia.fi/~oskarpi/fazer.php/modules/json/json/Index?costNumber=3134&language=${language}`);
     if(!response.ok){
       throw new Error(`HTTP ${response.status} ${response.statusText}`);
     }
