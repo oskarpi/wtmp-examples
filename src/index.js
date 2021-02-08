@@ -14,11 +14,15 @@ const randomFazerMealP = document.getElementById('fazer-random-meal');
 const randomDishP = document.getElementById('random-dish-p');
 const restaurants = document.querySelectorAll('.restaurant-box');
 const searchField = document.getElementById('search-restaurant');
+const searchLAbel = document.getElementById('search-label');
 const searchButton = document.getElementById('search-icon');
+const colorButton = document.getElementById('color-theme');
+const searchIcons = document.querySelectorAll('.location-icon');
 let sort = true;
 let language = 'fi';
 let fazerMenuObject = {};
 let sodexoMenuObject = {};
+let root = document.documentElement;
 const menuButton = document.querySelector('#menu-icon');
 const navItems = document.getElementById('nav-links');
 const searchForm = document.getElementById('search-form');
@@ -34,6 +38,58 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+
+if(!localStorage.getItem('colorTheme')){
+  localStorage.setItem('colorTheme', 'light');
+}
+
+
+if(localStorage.getItem('colorTheme') === 'light'){
+  colorButton.textContent = 'Musta teema';
+} else {
+  colorButton.textContent = 'Vaalea teema';
+}
+
+const loadColorTheme = () =>{
+  if(localStorage.getItem('colorTheme')==='black') {
+    root.style.setProperty('--body-color', '#141414');
+    root.style.setProperty('--primary-white', '#424242');
+    root.style.setProperty('--primary-light-grey', '#FFFFFF');
+    root.style.setProperty('--primary-dark-grey', '#FFFFFF');
+    root.style.setProperty('--body-textcolor', '#FFFFFF');
+    searchLAbel.style.setProperty('color', 'black');
+    for(let searchIcon of searchIcons){
+      searchIcon.style.setProperty('fill', 'white');
+    }
+  }else{
+    root.style.setProperty('--body-color', '#FFFFFF');
+    root.style.setProperty('--primary-white', '#F5F5F5');
+    root.style.setProperty('--primary-light-grey', '#65707d');
+    root.style.setProperty('--primary-dark-grey', '#343A40');
+    root.style.setProperty('--body-textcolor', '#000000');
+    searchLAbel.style.setProperty('color', '--(primary-dark-grey)');
+    for(let searchIcon of searchIcons){
+      searchIcon.style.setProperty('fill', 'black');
+    }
+  }
+};
+
+window.onload = (loadColorTheme);
+
+colorButton.addEventListener('click', (event) =>{
+  event.preventDefault();
+  if(localStorage.getItem('colorTheme')==='light'){
+    colorButton.textContent = 'Vaalea teema';
+    localStorage.setItem('colorTheme', 'black');
+    loadColorTheme();
+  }else{
+    colorButton.textContent = 'Musta teema';
+    localStorage.setItem('colorTheme', 'light');
+    loadColorTheme();
+  }
+
+});
+
 
 menuButton.addEventListener('click', (event) => {
   event.preventDefault();

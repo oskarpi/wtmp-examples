@@ -19,7 +19,10 @@
   --primary-blue: #15598A;
   --primary-brown: #8A4615;
   --primary-dark-grey: #343A40;
+  --body-color: #FFFFFF;
+  --body-textcolor: #000000;
   --primary-light-grey: #65707d;
+  --primary-white: #F5F5F5;
   --primary-black: #00000;
   --secondery-blue: #0C4469;
   --secondery-light-blue: #1D7BBF;
@@ -28,6 +31,8 @@
 }
 body{
   font-family: lato-regular;
+  background-color: var(--body-color);
+  color: var(--body-textcolor);
 }
 
 nav{
@@ -134,7 +139,7 @@ form{
   padding: 1%;
   border: 1px solid var(--primary-dark-grey);
   border-radius: 0.8em;
-  background-color: #F5F5F5;
+  background-color: var(--primary-white);
 }
 #search-restaurant{
   width: 17em;
@@ -226,7 +231,7 @@ form{
   padding: 1%;
   border: 1px dashed var(--primary-light-grey);
   border-radius: 0.8em;
-  background-color: white;
+  background-color: var(--primary-white);
 }
 #slogan{
   color: white;
