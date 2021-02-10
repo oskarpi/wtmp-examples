@@ -28,5 +28,7 @@
     "workbox-webpack-plugin": "^6.0.2",
     "write-file-webpack-plugin": "^4.5.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@shopify/draggable": "^1.0.0-beta.8"
+  }
 }

@@ -1,6 +1,5 @@
 'use strict';
 
-
 import apiData from './assets/modules/api-data';
 
 
@@ -274,3 +273,4 @@ searchButton.addEventListener('click', (event)=>{
     }
   }
 });
+
