@@ -1,7 +1,7 @@
 'use strict';
 
 import apiData from './assets/modules/api-data';
-
+import {Swappable, Plugins} from '@shopify/draggable';
 
 const sodexoMenu = document.querySelector('#sodexo-menu');
 const changeLanguageButton = document.getElementById('change-language');
@@ -17,6 +17,8 @@ const searchLAbel = document.getElementById('search-label');
 const searchButton = document.getElementById('search-icon');
 const colorButton = document.getElementById('color-theme');
 const searchIcons = document.querySelectorAll('.location-icon');
+const addbutton = document.getElementById('add-icon');
+const selectRestaurant = document.getElementById('select-restaurant');
 let sort = true;
 let language = 'fi';
 let fazerMenuObject = {};
@@ -203,10 +205,10 @@ const sortFazerMenu = (fazerMenu1, language) => {
 
 const init = async () => {
   try {
-    sodexoMenuObject = await apiData.initSodexo();
+    sodexoMenuObject = await apiData.initSodexo('152');
     await printSodexoMenu(sodexoMenuObject, language);
-    fazerMenuObject['fi'] = await apiData.initFazer('fi');
-    fazerMenuObject['en'] = await apiData.initFazer('en');
+    fazerMenuObject['fi'] = await apiData.initFazer('3134','fi');
+    fazerMenuObject['en'] = await apiData.initFazer('3134','en');
     await printFazerMenu(fazerMenuObject, language);
   }
   catch (error) {
@@ -272,5 +274,9 @@ searchButton.addEventListener('click', (event)=>{
       restaurant.style.display = 'none';
     }
   }
+});
+
+const swappable = new Swappable(document.querySelectorAll('#restaurants-area'), {
+  draggable: '.restaurant-box'
 });
 

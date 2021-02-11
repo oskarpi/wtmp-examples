@@ -59,6 +59,7 @@ button{
   background: inherit;
   outline: none;
   position: inherit;
+  z-index: 20;
 }
 a:hover{
   color: white;

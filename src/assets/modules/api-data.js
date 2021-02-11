@@ -15,11 +15,11 @@ if (month < 10) {
 
 today = `${year}-${month}-${day}`;
 
-const getSodexoData = async () => {
+const getSodexoData = async (restaurantid) => {
   let response;
   try {
     response = await fetch(
-      `https://www.sodexo.fi/ruokalistat/output/daily_json/152/${today}`);
+      `https://www.sodexo.fi/ruokalistat/output/daily_json/${restaurantid}/${today}`);
     if(!response.ok){
       throw new Error(`HTTP ${response.status} ${response.statusText}`);
     }
@@ -30,11 +30,11 @@ const getSodexoData = async () => {
   return await response.json();
 };
 
-const getFazerData = async(language) => {
+const getFazerData = async(restaurantid, language) => {
   let response;
   try {
     response = await fetch(
-      `https://users.metropolia.fi/~oskarpi/fazer.php/modules/json/json/Index?costNumber=3134&language=${language}`);
+      `https://users.metropolia.fi/~oskarpi/fazer.php/modules/json/json/Index?costNumber=${restaurantid}&language=${language}`);
     if(!response.ok){
       throw new Error(`HTTP ${response.status} ${response.statusText}`);
     }
@@ -45,12 +45,12 @@ const getFazerData = async(language) => {
   return await response.json();
 };
 
-const initFazer= async (language) =>{
+const initFazer= async (restaurantid, language) =>{
   let response;
   let menu;
 
   try {
-    response = await getFazerData(language);
+    response = await getFazerData(restaurantid, language);
     let menus = Object.values(response.MenusForDays);
     for(let daysMenu of menus){
       if(daysMenu.Date.slice(0,10) === today){
@@ -66,13 +66,13 @@ const initFazer= async (language) =>{
 
 
 
-const initSodexo = async () =>{
+const initSodexo = async (restaurantid) =>{
   let response;
   let menu = {};
   let menuFi = [];
   let menuEn = [];
   try {
-    response = await getSodexoData();
+    response = await getSodexoData(restaurantid);
     let courses = Object.values(response.courses);
     for(let course of courses){
         menuFi.push(course.title_fi);
