@@ -276,6 +276,9 @@ searchButton.addEventListener('click', (event)=>{
   }
 });
 
+/*
+voit vaihdella ravintoloiden paikkaa raahaamalla niitä toistensa päälle.
+ */
 const swappable = new Swappable(document.querySelectorAll('#restaurants-area'), {
   draggable: '.restaurant-box'
 });
